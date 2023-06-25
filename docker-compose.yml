@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  postgres:
+    container_name: exchange_rate_postgres
+    image: postgres:12
+    restart: always
+    environment:
+      - TZ=UTC
+      - POSTGRES_DATABASES=${DB_NAME_1}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 54324:5432
+    volumes:
+      - ./docker/postgres/:/docker-entrypoint-initdb.d/
+    networks:
+      - exchange_rate
+
+networks:
+  exchange_rate:
+    name: exchange_rate_network
+    driver: bridge
