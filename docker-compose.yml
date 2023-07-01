@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       - TZ=UTC
-      - POSTGRES_DATABASES=${DB_NAME_1}
+      - POSTGRES_DATABASES=${DB_NAME}
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
