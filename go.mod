@@ -1,11 +1,12 @@
 module main.go
 
-go 1.20
+go 1.21
 
 require (
 	github.com/jackc/pgconn v1.14.0
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/joho/godotenv v1.5.1
+	github.com/spf13/cobra v1.7.0
 )
 
 require (

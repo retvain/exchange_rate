@@ -1,20 +1,31 @@
 version: '3.7'
 services:
-  postgres:
-    container_name: exchange_rate_postgres
-    image: postgres:12
+  db:
+    container_name: exchange-rate-db
+    image: postgres:latest
     restart: always
     environment:
       - TZ=UTC
-      - POSTGRES_DATABASES=${DB_NAME}
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DATABASES=exchange_rate
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
-      - 54324:5432
+      - 6543:5432
     volumes:
       - ./docker/postgres/:/docker-entrypoint-initdb.d/
     networks:
       - exchange_rate
+
+  db_migrations:
+    image: migrate/migrate
+    container_name: db_migrations
+    networks:
+      - exchange_rate
+    volumes:
+      - ./migrations:/migrations
+    depends_on:
+      - db
+    command: -path=/migrations -database postgres://postgres:postgres@db:5432/exchange_rate?sslmode=disable up
 
 networks:
   exchange_rate:

@@ -1,10 +1,19 @@
-package appCfg
+package config
 
 import (
 	"github.com/joho/godotenv"
 	"log"
 	"os"
 )
+
+type Config struct {
+}
+
+func NewFromEnv() (*Config, error) {
+	c := &Config{}
+
+	return c, nil
+}
 
 type Db struct {
 	Username     string
